@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuiouht2i1q36"]
+
+[ext_resource type="Texture2D" uid="uid://dbmdq43wctm3y" path="res://assets/element_red_diamond.png" id="1_5cxma"]
+[ext_resource type="Script" uid="uid://bsuyj87hlpwev" path="res://scenes/gem.gd" id="1_mpwtx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpwtx"]
+size = Vector2(36.1333, 36.7694)
+
+[sub_resource type="Animation" id="Animation_mpwtx"]
+resource_name = "new_animation"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.99, 2, 3, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.785398, 1.5708, 2.35619, 3.14159, 3.92699, 4.71239, 5.49779, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_bhq7q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rj4j3"]
+_data = {
+&"RESET": SubResource("Animation_bhq7q"),
+&"new_animation": SubResource("Animation_mpwtx")
+}
+
+[node name="Gem" type="Area2D"]
+script = ExtResource("1_mpwtx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5cxma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.98023e-08)
+rotation = -2.35154
+shape = SubResource("RectangleShape2D_mpwtx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rj4j3")
+}
+autoplay = "new_animation"
